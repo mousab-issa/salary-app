@@ -1,3 +1,4 @@
+import { PasscodeMode } from "@common/enum";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import {
   CompositeScreenProps,
@@ -20,7 +21,7 @@ export type RootStackParamList = {
 export type AuthStackParamList = {
   SignInScreen: undefined;
   OTPScreen: undefined;
-  PassCodeScreen: { mode: "set" | "sign-in" };
+  PassCodeScreen: { mode: PasscodeMode };
 };
 
 export type AppStackParamList = {

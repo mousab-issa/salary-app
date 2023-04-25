@@ -13,3 +13,4 @@ export const API_END_POINT = {
 export const ACCESS_TOKEN_KEY = "ACCESS_TOKEN";
 export const LAST_LOGIN_DATE = "LAST_LOGIN_DATE";
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE";
+export const USER_PIN_KEY = "USER_PIN";

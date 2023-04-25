@@ -1,13 +1,13 @@
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities";
 import { AppStack, AuthStack } from "./stacks";
-import { ACCESS_TOKEN_KEY } from "@common/constants";
+import { ACCESS_TOKEN_KEY, USER_PIN_KEY } from "@common/constants";
 import Config from "@config/index";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
 } from "@react-navigation/native";
-import { login } from "@state/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@state/hooks";
 import * as storage from "@utils/storage";
 import * as SplashScreen from "expo-splash-screen";
@@ -30,9 +30,9 @@ export const AppNavigator = function AppNavigator(props: NavigationProps) {
   const checkAuth = async () => {
     try {
       const token = await storage.getSecureValue(ACCESS_TOKEN_KEY);
-      if (token) dispatch(login());
+      const storedPin = await AsyncStorage.getItem(USER_PIN_KEY);
     } catch (e) {
-      console.log(e, "Error refreshing token");
+      console.log(e, "Error logging in");
     } finally {
       setTimeout(() => {
         setAppIsReady(true);
