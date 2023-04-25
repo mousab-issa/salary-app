@@ -39,7 +39,7 @@ export const financialSlice = createSlice({
       .addCase(getUserTransactions.fulfilled, (state, action) => {
         state.userTransactions = action.payload;
         state.userBalance = action.payload.available;
-        state.maxWithdraw = action.payload.available / 2;
+        state.maxWithdraw = action.payload.available * 0.5;
         state.isLoading = false;
       })
       .addCase(getUserTransactions.rejected, (state, action) => {
@@ -49,7 +49,13 @@ export const financialSlice = createSlice({
       .addCase(userWithdraw.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(userWithdraw.fulfilled, (state) => {
+      .addCase(userWithdraw.fulfilled, (state, action) => {
+        const withdrawnAmount = action.payload.amount;
+        if (!state.userBalance) {
+          return;
+        }
+        state.userBalance -= withdrawnAmount;
+        state.maxWithdraw = state.userBalance * 0.5;
         state.isLoading = false;
       })
       .addCase(userWithdraw.rejected, (state, action) => {

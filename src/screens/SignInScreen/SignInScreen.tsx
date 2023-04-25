@@ -5,16 +5,13 @@ import { useAppDispatch } from "@state/hooks";
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 
-export const SignInScreen = ({
-  navigation,
-}: AuthStackScreenProps<"SignInScreen">) => {
+export const SignInScreen = (props: AuthStackScreenProps<"SignInScreen">) => {
   const dispatch = useAppDispatch();
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const handleSignIn = async () => {
     try {
       await dispatch(signIn({ phone: phoneNumber }));
-      navigation.navigate("OTPScreen");
     } catch (error) {
       console.error("Error signing in:", error);
     }

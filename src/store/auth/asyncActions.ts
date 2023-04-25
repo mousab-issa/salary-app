@@ -38,6 +38,7 @@ export const logOut = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       await deleteSecure(ACCESS_TOKEN_KEY);
+
       return true;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);

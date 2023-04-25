@@ -1,8 +1,10 @@
 import { Screen } from "../../components/Screen";
+import { USER_PIN_KEY } from "@common/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { logOut } from "@state/auth/asyncActions";
 import { useAppDispatch } from "@state/hooks";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export const SettingsScreen = () => {
   const dispatch = useAppDispatch();
@@ -11,8 +13,17 @@ export const SettingsScreen = () => {
     dispatch(logOut());
   };
 
+  const handleReset = async () => {
+    await AsyncStorage.removeItem(USER_PIN_KEY);
+    Alert.alert("The pin is resetted");
+  };
+
   const settingsOptions = [
-    { id: 1, text: "Reset PIN", onPress: () => console.log("Reset PIN") },
+    {
+      id: 1,
+      text: "Reset PIN",
+      onPress: handleReset,
+    },
     { id: 2, text: "Logout", onPress: handleLogout },
   ];
 

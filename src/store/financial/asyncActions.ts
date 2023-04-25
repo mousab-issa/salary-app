@@ -39,11 +39,11 @@ export const getUserTransactions = createAsyncThunk(
 
 export const userWithdraw = createAsyncThunk(
   `${reducerName}/userWithdraw`,
-  async (amount, thunkAPI) => {
+  async (amount: { amount: number }, thunkAPI) => {
     try {
       const response: AxiosResponse<UserWithdrawApiResponse> =
         await axiosInstance.post(`/${base}/${auth.userWithdraw}`, { amount });
-      return response.data.data;
+      return amount;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }

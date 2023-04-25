@@ -27,6 +27,7 @@ export const authSlice = createSlice({
           phone: action.payload.phone,
         };
         state.isLoading = false;
+        state.isSignedIn = true;
       })
       .addCase(signIn.pending, (state) => {
         state.isLoading = true;

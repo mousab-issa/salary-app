@@ -8,6 +8,7 @@ import {
   DefaultTheme,
   NavigationContainer,
 } from "@react-navigation/native";
+import { login } from "@state/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@state/hooks";
 import * as storage from "@utils/storage";
 import * as SplashScreen from "expo-splash-screen";
@@ -21,18 +22,18 @@ type NavigationProps = Partial<
 >;
 
 export const AppNavigator = function AppNavigator(props: NavigationProps) {
-  const isLoggedIn = useAppSelector((state) => state.authSlice.isSignedIn);
-  const isAuthLoading = useAppSelector((state) => state.authSlice.isLoading);
-
   const [appIsReady, setAppIsReady] = useState(false);
   const dispatch = useAppDispatch();
+  const isSignedIn = useAppSelector((state) => state.authSlice.isSignedIn);
 
   const checkAuth = async () => {
     try {
       const token = await storage.getSecureValue(ACCESS_TOKEN_KEY);
-      const storedPin = await AsyncStorage.getItem(USER_PIN_KEY);
+      if (token) {
+        dispatch(login());
+        return;
+      }
     } catch (e) {
-      console.log(e, "Error logging in");
     } finally {
       setTimeout(() => {
         setAppIsReady(true);
@@ -44,10 +45,10 @@ export const AppNavigator = function AppNavigator(props: NavigationProps) {
     async function hideSplashScreen() {
       await SplashScreen.hideAsync();
     }
-    if (appIsReady && !isAuthLoading) {
+    if (appIsReady) {
       hideSplashScreen();
     }
-  }, [appIsReady, isAuthLoading]);
+  }, [appIsReady]);
 
   useEffect(() => {
     checkAuth();
@@ -62,8 +63,8 @@ export const AppNavigator = function AppNavigator(props: NavigationProps) {
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
       {...props}
     >
-      {isLoggedIn && <AppStack />}
-      {!isLoggedIn && <AuthStack />}
+      {isSignedIn && <AppStack />}
+      {!isSignedIn && <AuthStack />}
     </NavigationContainer>
   );
 };

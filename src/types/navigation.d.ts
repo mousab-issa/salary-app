@@ -21,11 +21,11 @@ export type RootStackParamList = {
 export type AuthStackParamList = {
   SignInScreen: undefined;
   OTPScreen: undefined;
-  PassCodeScreen: { mode: PasscodeMode };
 };
 
 export type AppStackParamList = {
   Main: undefined;
+  PassCodeScreen: { mode: PasscodeMode };
 };
 
 export type AppTabsParamList = {
