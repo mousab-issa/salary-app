@@ -1,31 +1,43 @@
 import OTPInputView from "../../components/OTPINPUT";
 import { Screen } from "../../components/Screen";
 import { AuthStackScreenProps } from "../../types/navigation";
-import React, { useState } from "react";
-import { Text, StyleSheet } from "react-native";
+import { PasscodeMode } from "@common/enum";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React from "react";
+import { Text, StyleSheet, Alert } from "react-native";
 
 type PasscodeScreenParams = {
-  mode: "set" | "sign-in";
+  mode: PasscodeMode;
 };
 
 export const PasscodeScreen = ({
   route,
   navigation,
 }: AuthStackScreenProps<"PassCodeScreen">) => {
-  const [otp, setOTP] = useState("");
   const { mode } = route.params as PasscodeScreenParams;
 
-  const handleOtpCompletion = (otpValue: string) => {
-    if (mode === "set") {
-      // Handle setting PIN
-    } else if (mode === "sign-in") {
-      // Handle signing in with PIN
+  const handleOtpCompletion = async (otpValue: string) => {
+    const storedPin = await AsyncStorage.getItem("userPin");
+
+    if (mode === PasscodeMode.Set) {
+      await AsyncStorage.setItem("userPin", otpValue);
+      navigation.navigate("Main");
+      return;
     }
+
+    if (mode === PasscodeMode.SignIn && storedPin === otpValue) {
+      navigation.navigate("Main");
+      return;
+    }
+
+    Alert.alert("Invalid PIN", "Please enter a valid PIN.");
   };
 
   return (
     <Screen style={styles.container}>
-      <Text style={styles.title}>{mode === "set" ? "Set" : "Enter"} PIN</Text>
+      <Text style={styles.title}>
+        {mode === PasscodeMode.Set ? "Set" : "Enter"} PIN
+      </Text>
       <OTPInputView
         style={styles.otpInput}
         pinCount={4}

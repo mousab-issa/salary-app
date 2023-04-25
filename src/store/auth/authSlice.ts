@@ -15,7 +15,7 @@ export const authSlice = createSlice({
   name: reducerName,
   initialState: initialState,
   reducers: {
-    signIn: (state) => {
+    login: (state) => {
       state.isSignedIn = true;
     },
   },
@@ -53,5 +53,7 @@ export const authSlice = createSlice({
       });
   },
 });
-export const {signIn} = authSlice.reducer
+
+export const { login } = authSlice.actions;
+
 export default authSlice.reducer;

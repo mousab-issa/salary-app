@@ -1,4 +1,3 @@
-// types
 interface AuthState {
   isSignedIn: boolean;
   isLoading: boolean;

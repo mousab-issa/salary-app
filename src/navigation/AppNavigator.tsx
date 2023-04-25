@@ -7,6 +7,7 @@ import {
   DefaultTheme,
   NavigationContainer,
 } from "@react-navigation/native";
+import { login } from "@state/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "@state/hooks";
 import * as storage from "@utils/storage";
 import * as SplashScreen from "expo-splash-screen";
@@ -20,8 +21,7 @@ type NavigationProps = Partial<
 >;
 
 export const AppNavigator = function AppNavigator(props: NavigationProps) {
-  // const isLoggedIn = useAppSelector((state) => state.authSlice.isSignedIn);
-  const isLoggedIn = false;
+  const isLoggedIn = useAppSelector((state) => state.authSlice.isSignedIn);
   const isAuthLoading = useAppSelector((state) => state.authSlice.isLoading);
 
   const [appIsReady, setAppIsReady] = useState(false);
@@ -30,6 +30,7 @@ export const AppNavigator = function AppNavigator(props: NavigationProps) {
   const checkAuth = async () => {
     try {
       const token = await storage.getSecureValue(ACCESS_TOKEN_KEY);
+      if (token) dispatch(login());
     } catch (e) {
       console.log(e, "Error refreshing token");
     } finally {
