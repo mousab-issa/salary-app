@@ -5,7 +5,7 @@
     "version": "2.0.6",
     "jsEngine": "hermes",
     "owner": "mousab",
-    "icon": "./src/assets/images/icon.png",
+    "icon": "./src/assets/images/sad-face.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -30,12 +30,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "foregroundImage": "./src/assets/images/sad-face.png",
         "backgroundColor": "#ffffff"
-      },
+      }
     },
     "web": {
-      "favicon": "./src/assets/images/favicon.png"
+      "favicon": "./src/assets/images/sad-face.png"
     },
     "extra": {
       "eas": {
