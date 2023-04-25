@@ -21,3 +21,6 @@ Prerequisites
 2. `cd salary_hero`
 3. `yarn `
 3. `yarn ios`
+
+## Note 
+The OTP input might not work correctly in the simulator , try it on a real device.
