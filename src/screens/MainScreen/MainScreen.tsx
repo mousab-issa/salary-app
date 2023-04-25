@@ -1,4 +1,5 @@
 import { Screen } from "../../components/Screen";
+import { Avatar } from "@components/*";
 import {
   getUserProfile,
   getUserTransactions,
@@ -33,6 +34,12 @@ export const MainScreen = () => {
 
   return (
     <Screen style={styles.container}>
+      <Avatar
+        image={{ uri: "https://picsum.photos/200/300" }}
+        style={styles.avatar}
+        size={20}
+      />
+      resizeMode="cover"
       <View style={styles.header}>
         <Text style={styles.headerText}>
           {financialState.userProfile?.firstname}
@@ -58,6 +65,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
   },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    position: "absolute",
+    top: 10,
+    right: 20,
+  },
+
   container: {
     flex: 1,
     paddingHorizontal: 20,

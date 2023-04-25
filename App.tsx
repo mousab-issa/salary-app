@@ -1,6 +1,5 @@
 import "./src/i18n";
 import { NAVIGATION_PERSISTENCE_KEY } from "@common/constants";
-import { Common } from "@components/index";
 import Config from "@config/index";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { AppNavigator, useNavigationPersistence } from "@navigation/index";
@@ -57,13 +56,11 @@ function App() {
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <Provider store={store}>
           <BottomSheetModalProvider>
-            <Common>
-              <AppNavigator
-                linking={linking}
-                initialState={initialNavigationState}
-                onStateChange={onNavigationStateChange}
-              />
-            </Common>
+            <AppNavigator
+              linking={linking}
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
           </BottomSheetModalProvider>
         </Provider>
       </ErrorBoundary>
