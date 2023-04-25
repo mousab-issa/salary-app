@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "salary_hero",
+    "slug": "salary_hero",
+    "version": "2.0.6",
+    "jsEngine": "hermes",
+    "owner": "mousab",
+    "icon": "./src/assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 10
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "plugins": [
+      [
+        "expo-screen-orientation"
+      ],
+      "expo-localization"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+    },
+    "web": {
+      "favicon": "./src/assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4c93a27a-9ed0-4daa-8a7d-a639b63f6ce6"
+      }
+    },
+    "description": ""
+  }
+}
